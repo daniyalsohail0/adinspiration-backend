@@ -24,7 +24,7 @@ router.put("/change-password", changePassword);
 router.put("/update-user", updateUser);
 
 // Get user by id, to display data
-router.get("/get-user:id", getUser);
+router.get("/get-user/:id", getUser);
 
 // Get all users, designed for analytics
 router.get("/get-all-users", getAllUsers);

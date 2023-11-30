@@ -4,7 +4,7 @@ const secretKey = process.env.SECRET_KEY!;
 
 export const generateToken = (
   data: Record<string, any>,
-  expiresIn: string = "1h"
+  expiresIn: string = "24h"
 ): string => {
   return jwt.sign(data, secretKey, { expiresIn });
 };
