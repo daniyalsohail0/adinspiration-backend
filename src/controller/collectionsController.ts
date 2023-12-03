@@ -121,39 +121,59 @@ export const getCollectionByUser = async (req: Request, res: Response) => {
 };
 
 export const updateCollection = async (req: Request, res: Response) => {
-    try {
-        const collectionId = req.params.id;
+  try {
+    const collectionId = req.params.id;
 
-        // Destructure the request body to get title, description, and videoURLs
-        const { title, description, videoURLs } = req.body;
+    const { name, description, videoURLs } = req.body;
 
-        // Update the collection using findByIdAndUpdate
-        const updatedCollection = await CollectionModel.findByIdAndUpdate(
-            collectionId,
-            { title, description, videoURLs },
-            { new: true, runValidators: true }
-        );
+    const updatedCollection = await CollectionModel.findByIdAndUpdate(
+      collectionId,
+      { name, description, videoURLs },
+      { new: true, runValidators: true }
+    );
 
-        if (!updatedCollection) {
-            return res.status(404).json({
-                success: false,
-                message: "Collection not found",
-            });
-        }
-
-        res.status(201).json({
-            success: true,
-            data: updatedCollection,
-        });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({
-            success: false,
-            message: "Internal server error",
-        });
+    if (!updatedCollection) {
+      return res.status(404).json({
+        success: false,
+        message: "Collection not found",
+      });
     }
+
+    res.status(201).json({
+      success: true,
+      data: updatedCollection,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
 };
 
-export const deleteCollection = () => {
-  console.log("delete a single collection by user");
+export const deleteCollection = async (req: Request, res: Response) => {
+  try {
+    const collectionId = req.body.id;
+
+    const deletedCollection = await CollectionModel.findByIdAndDelete(collectionId)
+
+    if (!deletedCollection) {
+      return res.status(404).json({
+        success: false,
+        message: "Collection does not exist."
+      })
+    }
+
+    res.status(201).json({
+      success: true,
+      message: "Collection deleted successfully.",
+      data: deletedCollection,
+    })
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error
+    })
+  }
 };

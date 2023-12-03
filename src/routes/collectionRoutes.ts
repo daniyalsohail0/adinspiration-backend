@@ -7,7 +7,6 @@ import {
   updateCollection,
   deleteCollection,
 } from "../controller/collectionsController";
-import { authVerify } from "../middleware/authVerify";
 
 const router = express.Router();
 
@@ -26,7 +25,7 @@ router.get("/collection/:id", getCollectionByUser);
 // Update collection by collection id
 router.put("/collection/:id", updateCollection);
 
-// // Delete collection by collection id
-// router.delete("/collection/:id", authVerify, deleteCollection);
+// Delete collection by collection id
+router.delete("/collection/:id", deleteCollection);
 
 export default router;
