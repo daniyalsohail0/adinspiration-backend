@@ -6,7 +6,8 @@ import morgan from "morgan";
 dotenv.config();
 
 import { connectToDatabase } from "./db";
-import authRouter from './routes/authRoutes'
+import authRouter from "./routes/authRoutes";
+import collectionRouter from "./routes/collectionRoutes";
 
 const PORT = process.env.PORT;
 
@@ -21,7 +22,8 @@ const main = () => {
   app.use(cors());
   app.use(morgan("dev"));
 
-  app.use('/auth', authRouter)
+  app.use("/auth", authRouter);
+  app.use("/api/v1", collectionRouter);
 
   connectToDatabase();
 };

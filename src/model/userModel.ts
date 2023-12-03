@@ -10,7 +10,8 @@ export interface IUser extends Document {
   userMessage: string;
   hireUGC: boolean;
   subscription: string;
-  collections: Collection[] | Schema.Types.ObjectId[]; // Use either Collection[] or ObjectId[]
+  collections: Collection[] | Schema.Types.ObjectId[];
+  createdAt: Date; // Use either Collection[] or ObjectId[]
 }
 
 const userSchema = new Schema<IUser>({
@@ -54,6 +55,10 @@ const userSchema = new Schema<IUser>({
   collections: [
     { type: Schema.Types.ObjectId, ref: "Collection", required: false },
   ],
+  createdAt: {
+    type: Date,
+    default: Date.now(),
+  }
 });
 
 export default mongoose.model<IUser>("User", userSchema);
