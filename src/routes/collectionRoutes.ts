@@ -7,25 +7,26 @@ import {
   updateCollection,
   deleteCollection,
 } from "../controller/collectionsController";
+import { authVerify } from '../middleware/authVerify';
 
 const router = express.Router();
-
-// Create a new collection by a user
-router.post("/collection/:id", createCollection);
 
 // All collections
 router.get("/collections", getAllCollections);
 
 // Detailed collection by collection id
-router.get("/collections/:id", getAllCollectionsByUser);
+router.get("/collections/:collectionId", getCollectionByUser);
 
-// All collections by specific user by user id
-router.get("/collection/:id", getCollectionByUser);
+// Create a new collection by a user - Tested and working
+router.post("/:userId/collection", authVerify, createCollection);
 
-// Update collection by collection id
-router.put("/collection/:id", updateCollection);
+// All collections by specific user by user id - Tested and working
+router.get("/:userId/collection", authVerify, getAllCollectionsByUser);
 
-// Delete collection by collection id
-router.delete("/collection/:id", deleteCollection);
+// Update collection by collection id - Tested and working
+router.put("/:userId/collection/:id", authVerify, updateCollection);
+
+// Delete collection by collection id - Tested and working
+router.delete("/:userId/collection/:id", authVerify, deleteCollection);
 
 export default router;

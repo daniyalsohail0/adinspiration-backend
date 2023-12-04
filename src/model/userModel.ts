@@ -1,5 +1,5 @@
 import mongoose, { Document, Schema } from "mongoose";
-import { Collection, CollectionModel } from "./collectionsModel";
+import { Collection } from "./collectionsModel";
 
 export interface IUser extends Document {
   email: string;
@@ -11,7 +11,8 @@ export interface IUser extends Document {
   hireUGC: boolean;
   subscription: string;
   collections: Collection[] | Schema.Types.ObjectId[];
-  createdAt: Date; // Use either Collection[] or ObjectId[]
+  savedCollections: string[]
+  createdAt: Date;
 }
 
 const userSchema = new Schema<IUser>({
@@ -54,6 +55,9 @@ const userSchema = new Schema<IUser>({
   },
   collections: [
     { type: Schema.Types.ObjectId, ref: "Collection", required: false },
+  ],
+  savedCollections: [
+    { type: Schema.Types.ObjectId, ref: "Collection", required: false},
   ],
   createdAt: {
     type: Date,

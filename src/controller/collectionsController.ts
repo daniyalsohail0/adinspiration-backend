@@ -4,13 +4,11 @@ import User from "../model/userModel";
 
 export const createCollection = async (req: Request, res: Response) => {
   try {
-    const userId = req.params.id;
+    const userId = req.params.userId;
     const { name, description, videoURLs } = req.body;
 
     // Check if the user exists
     const user = await User.findById(userId);
-
-    console.log(user);
 
     if (!user) {
       return res.status(404).json({
@@ -70,7 +68,7 @@ export const getAllCollections = async (req: Request, res: Response) => {
 
 export const getAllCollectionsByUser = async (req: Request, res: Response) => {
   try {
-    const userId = req.params.id;
+    const userId = req.params.userId;
 
     const user = await User.findById(userId).populate("collections");
 
@@ -97,7 +95,7 @@ export const getAllCollectionsByUser = async (req: Request, res: Response) => {
 
 export const getCollectionByUser = async (req: Request, res: Response) => {
   try {
-    const collectionId = req.params.id;
+    const collectionId = req.params.collectionId;
 
     const collection = await CollectionModel.findById(collectionId);
 
@@ -154,26 +152,30 @@ export const updateCollection = async (req: Request, res: Response) => {
 
 export const deleteCollection = async (req: Request, res: Response) => {
   try {
-    const collectionId = req.body.id;
+    const collectionId = req.params.id;
 
-    const deletedCollection = await CollectionModel.findByIdAndDelete(collectionId)
+    const deletedCollection = await CollectionModel.findByIdAndDelete(
+      collectionId
+    );
+
+    console.log(deletedCollection);
 
     if (!deletedCollection) {
       return res.status(404).json({
         success: false,
-        message: "Collection does not exist."
-      })
+        message: "Collection does not exist.",
+      });
     }
 
     res.status(201).json({
       success: true,
       message: "Collection deleted successfully.",
       data: deletedCollection,
-    })
+    });
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: error
-    })
+      message: error,
+    });
   }
 };

@@ -8,6 +8,7 @@ dotenv.config();
 import { connectToDatabase } from "./db";
 import authRouter from "./routes/authRoutes";
 import collectionRouter from "./routes/collectionRoutes";
+import savedCollectionsRouter from "./routes/savedCollectionRoutes";
 
 const PORT = process.env.PORT;
 
@@ -24,6 +25,7 @@ const main = () => {
 
   app.use("/auth", authRouter);
   app.use("/api/v1", collectionRouter);
+  app.use("/api/v1", savedCollectionsRouter);
 
   connectToDatabase();
 };
