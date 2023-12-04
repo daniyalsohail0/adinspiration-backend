@@ -1,0 +1,496 @@
+{
+	"info": {
+		"_postman_id": "ad3d72d4-4fd3-48f5-b6f7-e607f14fe695",
+		"name": "Adinspiration",
+		"description": "This project is written in Node.js with TypeScript. It is a simple app that enables users to create their accounts, manage their accounts, create their own collections (with CRUD functionality), and save or unsave their favorite collections.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "24913294"
+	},
+	"item": [
+		{
+			"name": "localhost:5000/auth/register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"mailman@mail.com\",\r\n    \"password\": \"password\",\r\n    \"firstName\": \"John\",\r\n    \"lastName\": \"Doe\",\r\n    \"hireUGC\" : true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:5000/auth/register",
+				"description": "Create user account.\n\nRequired fields:\n\n1. Email\n    \n2. First Name\n    \n3. Last Name\n    \n4. Company Type\n    \n5. User Message\n    \n6. Hire UGC or not\n    \n7. Subscription (set to Free by default)"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/auth/get-user/:id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTY3ZDU3NTZiN2U4ODkwNDkzZmE3MWIiLCJpYXQiOjE3MDEzMDYyMTEsImV4cCI6MTcwMTM5MjYxMX0.9khY1k4OmcFLFt1TtgmHgvZ9h5D9L4hzfPe3Jb_3NOQ"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/auth/get-user/:id",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"auth",
+						"get-user",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "6567d5756b7e8890493fa71b"
+						}
+					]
+				},
+				"description": "Request user details to populate their profiles or manage state in the Front End App (React.js with TypeScript)"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/auth/login",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": ""
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"mailman@mail.com\",\r\n    \"password\": \"password\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:5000/auth/login",
+				"description": "Login route to ensure the user is authenticated. This endpoint generates a JWT Token and also returns the user ID for other API usage."
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/auth/update-user/:id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTY3ZDU3NTZiN2U4ODkwNDkzZmE3MWIiLCJpYXQiOjE3MDEzNjAxMDEsImV4cCI6MTcwMTQ0NjUwMX0.iCmdQTujq-QB1vr7uZI5zcmNlBKcRGjWtIdJP3IRxso"
+					}
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"Johnathon\",\r\n    \"lastName\": \"Doe\",\r\n    \"companyType\": \"Firm\",\r\n    \"userMessage\": \"Just trying to learn more about the business.\",\r\n    \"hireUGC\": false,\r\n    \"subscription\": \"Free\",\r\n    \"collections\": []\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/auth/update-user/:id",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"auth",
+						"update-user",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "6567d5756b7e8890493fa71b"
+						}
+					]
+				},
+				"description": "Simple route to update the user data."
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/auth/get-users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "localhost:5000/auth/get-users",
+				"description": "This is specifically only for admin to get all users registers.\n\n> Note: None of these APIs return the password field."
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/auth/delete-user/:id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTY3ZDU3NTZiN2U4ODkwNDkzZmE3MWIiLCJpYXQiOjE3MDEzNjAxMDEsImV4cCI6MTcwMTQ0NjUwMX0.iCmdQTujq-QB1vr7uZI5zcmNlBKcRGjWtIdJP3IRxso"
+					}
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/auth/delete-user/:id",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"auth",
+						"delete-user",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "6567d5756b7e8890493fa71b"
+						}
+					]
+				},
+				"description": "Endpoint to delete an account. Requires login."
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/api/v1/:userId/collection/:id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTZlMjVhMWFkOWM4MjM1OGZiM2E2MmIiLCJpYXQiOjE3MDE3MTc3MDksImV4cCI6MTcwMTgwNDEwOX0.uZs0R49fCckZIZvynGnWvhQ1bJe9yIxNYnE6zV43VW0"
+					}
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"My Trip To NewYork\",\r\n    \"description\": \"Let us take you nowhere. Stay home bro. Go away.\",\r\n    \"videoURLs\": [\r\n        \"abcd.com\",\r\n        \"google.com\",\r\n        \"facebook.com\",\r\n        \"newestcollection.com\"\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/api/v1/:userId/collection/:id",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						":userId",
+						"collection",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "userId",
+							"value": "656e25a1ad9c82358fb3a62b"
+						},
+						{
+							"key": "id",
+							"value": "656e26f6977c391f4e1e40bc"
+						}
+					]
+				},
+				"description": "Update a collection."
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/api/v1/:userId/collection/",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTZlMjVhMWFkOWM4MjM1OGZiM2E2MmIiLCJpYXQiOjE3MDE3MTc3MDksImV4cCI6MTcwMTgwNDEwOX0.uZs0R49fCckZIZvynGnWvhQ1bJe9yIxNYnE6zV43VW0"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/api/v1/:userId/collection/",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						":userId",
+						"collection",
+						""
+					],
+					"variable": [
+						{
+							"key": "userId",
+							"value": "656e25a1ad9c82358fb3a62b"
+						}
+					]
+				},
+				"description": "Get all collections by the logged on specific user."
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/api/v1/:userId/collection",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTZlMjVhMWFkOWM4MjM1OGZiM2E2MmIiLCJpYXQiOjE3MDE3MTc3MDksImV4cCI6MTcwMTgwNDEwOX0.uZs0R49fCckZIZvynGnWvhQ1bJe9yIxNYnE6zV43VW0"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"My Trip To London\",\r\n    \"description\": \"Let us take you nowhere. Stay home bro.\",\r\n    \"videoURLs\": [\"abcd.com\", \"google.com\", \"facebook.com\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/api/v1/:userId/collection",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						":userId",
+						"collection"
+					],
+					"variable": [
+						{
+							"key": "userId",
+							"value": "656e25a1ad9c82358fb3a62b"
+						}
+					]
+				},
+				"description": "Create a new collection."
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/api/v1/:userId/collection/:id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTZlMjVhMWFkOWM4MjM1OGZiM2E2MmIiLCJpYXQiOjE3MDE3MTc3MDksImV4cCI6MTcwMTgwNDEwOX0.uZs0R49fCckZIZvynGnWvhQ1bJe9yIxNYnE6zV43VW0"
+					}
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/api/v1/:userId/collection/:id",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						":userId",
+						"collection",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "userId",
+							"value": "656e25a1ad9c82358fb3a62b"
+						},
+						{
+							"key": "id",
+							"value": "656e26f6977c391f4e1e40bc"
+						}
+					]
+				},
+				"description": "Delete a collection."
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/api/v1/collections",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "localhost:5000/api/v1/collections",
+				"description": "Get all collections. Requires no login or authentication. This Endpoint is only to populate the Front End."
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/api/v1/collections/:collectionId",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/api/v1/collections/:collectionId",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"collections",
+						":collectionId"
+					],
+					"variable": [
+						{
+							"key": "collectionId",
+							"value": "656cef3c631cad0eeb4cb269"
+						}
+					]
+				},
+				"description": "Get a detailed data object for a specific collection."
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/api/v1/:userId/saved",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTZlM2Q0OTZiOThlOTViNTBjZDJkNDAiLCJpYXQiOjE3MDE3MjkzOTEsImV4cCI6MTcwMTgxNTc5MX0.PhWAJOWnrQt4_hm_AptgBcVDcU6VbLgFbEFvgrHlRFs"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"collectionId\": \"656cef3c631cad0eeb4cb269\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/api/v1/:userId/saved",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						":userId",
+						"saved"
+					],
+					"variable": [
+						{
+							"key": "userId",
+							"value": "656e3d496b98e95b50cd2d40"
+						}
+					]
+				},
+				"description": "Add a new collection to your saved collections."
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/api/v1/:userId/saved",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTZlM2Q0OTZiOThlOTViNTBjZDJkNDAiLCJpYXQiOjE3MDE3MjkzOTEsImV4cCI6MTcwMTgxNTc5MX0.PhWAJOWnrQt4_hm_AptgBcVDcU6VbLgFbEFvgrHlRFs"
+					}
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"collectionId\": \"656e280f547ebc0cd4f00df3\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/api/v1/:userId/saved",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						":userId",
+						"saved"
+					],
+					"variable": [
+						{
+							"key": "userId",
+							"value": "656e3d496b98e95b50cd2d40"
+						}
+					]
+				},
+				"description": "Remove a collection from saved collections."
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/api/v1/:userId/saved",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTZlM2Q0OTZiOThlOTViNTBjZDJkNDAiLCJpYXQiOjE3MDE3MjkzOTEsImV4cCI6MTcwMTgxNTc5MX0.PhWAJOWnrQt4_hm_AptgBcVDcU6VbLgFbEFvgrHlRFs"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/api/v1/:userId/saved",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						":userId",
+						"saved"
+					],
+					"variable": [
+						{
+							"key": "userId",
+							"value": "656e3d496b98e95b50cd2d40"
+						}
+					]
+				},
+				"description": "This Endpoint returns all the saved collections of a user."
+			},
+			"response": []
+		}
+	]
+}
